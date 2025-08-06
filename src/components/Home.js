@@ -198,13 +198,6 @@ function Home({ scrollTarget, setScrollTarget }) {
                 </div>
             </section>
 
-            <div ref={shopSectionRef}>
-                <ProductCarousel title="Featured" products={featuredProducts} />
-                <ProductCarousel title="Popular" products={popularProducts} />
-            </div>
-
-
-
             <section className="collection-intro" ref={introRef}>
                 <p className="collection-text slide-down">{displayText} </p>
             </section>
@@ -239,6 +232,13 @@ function Home({ scrollTarget, setScrollTarget }) {
                     </div>
                 </div>
             </section>
+
+
+            <div ref={shopSectionRef}>
+                <ProductCarousel title="Featured" products={featuredProducts} />
+                <ProductCarousel title="Popular" products={popularProducts} />
+            </div>
+
 
             <section className="about-section" ref={aboutSectionRef}>
                 <div className="about-overlay">

@@ -21,7 +21,7 @@ const HeartIcon = ({ isWishlisted }) => (
 );
 
 
-const ProductPage = ({ products, onToggleWishlist, wishlistItems }) => {
+const ProductPage = ({ products, onToggleWishlist, wishlistItems, onAddToCart }) => {
     // State to manage the quantity of the product
     const [quantity, setQuantity] = useState(1);
 
@@ -75,7 +75,9 @@ const ProductPage = ({ products, onToggleWishlist, wishlistItems }) => {
                 </div>
 
                 <div className="product-actions">
-                    <button className="add-to-cart-btn">Add To Cart</button>
+                    <button className="add-to-cart-btn"
+                        onClick={() => onAddToCart(product, quantity)}
+                    >Add To Cart</button>
                     <div className={`wishlist-icon ${isWishlisted ? 'wishlisted' : ''}`}
                         // Call the handler from props, passing the entire product object
                         onClick={() => onToggleWishlist(product)}

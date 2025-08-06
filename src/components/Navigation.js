@@ -11,7 +11,15 @@ const WishlistNavIcon = () => (
   </svg>
 );
 
-const Navigation = ({ wishlistCount, setScrollTarget }) => {
+const CartNavIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="9" cy="21" r="1"></circle>
+    <circle cx="20" cy="21" r="1"></circle>
+    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+  </svg>
+);
+
+const Navigation = ({ wishlistCount, setScrollTarget, cartCount }) => {
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -71,23 +79,11 @@ const Navigation = ({ wishlistCount, setScrollTarget }) => {
             {wishlistCount > 0 && <span className="nav-badge">{wishlistCount}</span>}
           </Link>
 
-          <button className="nav-acttion-button cart-button" aria-label="Shopping cart">
-            <svg
-              width="42"
-              height="30"
-              viewBox="0 0 42 30"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="cart-icon"
-            >
-              <path
-                d="M41.4625 9.48128C41.2709 9.20434 41.015 8.97799 40.7167 8.82161C40.4185 8.66522 40.0868 8.58347 39.75 8.58336H11.2771L8.87291 2.81252C8.5586 2.05191 8.02503 1.40206 7.34015 0.945717C6.65527 0.489374 5.85006 0.247197 5.02707 0.250024H0.166656V4.41669H5.02707L14.9104 28.1354C15.0687 28.5149 15.3358 28.8391 15.678 29.0671C16.0201 29.2951 16.4221 29.4167 16.8333 29.4167H33.5C34.3687 29.4167 35.1458 28.8771 35.4521 28.0667L41.7021 11.4C41.8202 11.0847 41.8601 10.7453 41.8184 10.4112C41.7766 10.077 41.6545 9.75792 41.4625 9.48128ZM32.0562 25.25H18.2229L13.0146 12.75H36.7437L32.0562 25.25Z"
-                fill="#E6E6E6"
-              />
-            </svg>
-          </button>
+          <Link to="/cart" className="nav-action-button" aria-label="Shopping cart">
+            <CartNavIcon />
+            {cartCount > 0 && <span className="nav-badge">{cartCount}</span>}
+          </Link>
         </div>
-
       </div>
     </nav>
   );

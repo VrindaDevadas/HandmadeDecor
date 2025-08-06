@@ -6,6 +6,7 @@ import ProductPage from './components/ProductPage';
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 import Wishlist from "./components/Wishlist";
+import CartPage from './components/CartPage';
 
 import flowerlamp from './images/flowerlamp.jpeg';
 import daisyhat from './images/daisyhat.jpg';
@@ -151,10 +152,49 @@ function App() {
 
   const [scrollTarget, setScrollTarget] = useState(null);
 
+  const [cartItems, setCartItems] = useState([]);
+
+  const handleAddToCart = (productToAdd, quantity) => {
+    // Check if the item is already in the cart
+    const existingItem = cartItems.find(item => item.id === productToAdd.id);
+
+    if (existingItem) {
+      // If it exists, update its quantity
+      setCartItems(cartItems.map(item =>
+        item.id === productToAdd.id
+          ? { ...item, quantity: item.quantity + quantity }
+          // This is a new object, so React re-renders
+          : item
+      ));
+    } else {
+      // If it's a new item, add it to the cart with the given quantity
+      setCartItems([...cartItems, { ...productToAdd, quantity: quantity }]);
+    }
+  };
+
+  // 4. Calculate the total number of items in the cart for the badge
+  const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  const handleUpdateCartQuantity = (productToUpdate, newQuantity) => {
+    if (newQuantity < 1) {
+      // If quantity is 0, remove the item from the cart
+      setCartItems(cartItems.filter(item => item.id !== productToUpdate.id));
+    } else {
+      // Otherwise, just update the quantity for that one item
+      setCartItems(cartItems.map(item =>
+        item.id === productToUpdate.id
+          ? { ...item, quantity: newQuantity }
+          : item
+      ));
+    }
+  };
+
+
   return (
     <Router>
       <HeaderBanner />
       <Navigation wishlistCount={wishlistItems.length}
+        cartCount={cartItemCount}
         setScrollTarget={setScrollTarget} />
       <Routes>
         <Route path="/" element={
@@ -166,7 +206,8 @@ function App() {
           <ProductPage
             products={allProducts}
             onToggleWishlist={handleToggleWishlist}
-            wishlistItems={wishlistItems} />}
+            wishlistItems={wishlistItems}
+            onAddToCart={handleAddToCart} />}
         />
 
         <Route path="/wishlist" element={
@@ -176,6 +217,11 @@ function App() {
           />
         }
         />
+
+        <Route path="/cart"
+          element={<CartPage cartItems={cartItems} onUpdateQuantity={handleUpdateCartQuantity} />}
+        />
+
       </Routes>
     </Router>
 
