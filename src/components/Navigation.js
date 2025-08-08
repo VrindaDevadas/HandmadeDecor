@@ -26,6 +26,8 @@ const Navigation = ({ wishlistCount, setScrollTarget, cartCount }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+
+
   const handleLinkClick = (sectionId) => {
     // If we are not on the home page, navigate there first
     if (location.pathname !== '/') {
@@ -44,6 +46,21 @@ const Navigation = ({ wishlistCount, setScrollTarget, cartCount }) => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
 
+
+  useEffect(() => {
+    // This function runs when the 'isMobileMenuOpen' state changes
+    if (isMobileMenuOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+
+    // cleanup function that runs when the component unmounts
+    // It ensures the scroll lock is always removed
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <nav className={`navigation-container ${isMobileMenuOpen ? "menu-open" : ""}`}>
