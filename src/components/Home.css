@@ -409,26 +409,31 @@ body {
 /* === MEDIA QUERY FOR TABLETS AND SMALLER === */
 @media (max-width: 900px) {
     .home {
-        /* Reduce side padding on smaller screens */
         padding: 40px 15px;
     }
 
     .hero h1 {
-        /* Make the main heading smaller on mobile */
         font-size: 2rem;
     }
 
     .collection-text {
-        /* Make the intro text smaller */
         font-size: 1.8rem;
     }
 
+    .about-section {
+
+        padding-bottom: 10px;
+    }
+
+    .why-choose-us {
+
+        padding-top: 5px;
+    }
 
     .about-content {
 
         flex-direction: column;
         gap: 40px;
-        align-items: center;
     }
 
     .about-description {
@@ -436,6 +441,16 @@ body {
         max-width: 100%;
         font-size: 1.1rem;
         text-align: center;
+    }
+
+    .about-images-triangle {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        height: auto;
+        width: 100%;
+        gap: 10px;
     }
 
 
@@ -459,9 +474,29 @@ body {
         font-size: 1.2rem;
         text-align: left;
     }
+
+    .bubble {
+        position: static;
+        transform: none;
+        width: 100px;
+        height: 100px;
+        flex-shrink: 0;
+    }
+
+
+    .bubble1,
+    .bubble2,
+    .bubble3 {
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        transform: none;
+        animation-delay: 0s;
+    }
 }
 
-/* === Responsive === */
+
 @media (max-width: 768px) {
     .why-content {
         flex-direction: column;
@@ -482,7 +517,25 @@ body {
     }
 
     .bubble {
-        width: 80px;
-        height: 80px;
+
+        position: static;
+        transform: none;
+    }
+
+
+    .bubble1,
+    .bubble2,
+    .bubble3 {
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        transform: none;
+        animation-delay: 0s;
+
+    }
+
+    .why-video video {
+        width: 380px;
     }
 }

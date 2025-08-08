@@ -204,51 +204,47 @@ const AppContent = () => {
   return (
     <>
       <HeaderBanner />
-      <Navigation
-        wishlistCount={wishlistItems.length}
+      <Navigation wishlistCount={wishlistItems.length}
         cartCount={cartItemCount}
-        setScrollTarget={setScrollTarget}
-      />
+        setScrollTarget={setScrollTarget} />
       <Routes>
-        <Route
-          path="/"
-          element={<Home scrollTarget={scrollTarget} setScrollTarget={setScrollTarget} />}
+        <Route path="/" element={
+          <Home
+            scrollTarget={scrollTarget}
+            setScrollTarget={setScrollTarget} />} />
+        {/* This route will render the ProductPage and pass all products to it */}
+        <Route path="/product/:productId" element={
+          <ProductPage
+            products={allProducts}
+            onToggleWishlist={handleToggleWishlist}
+            wishlistItems={wishlistItems}
+            onAddToCart={handleAddToCart} />}
         />
-        <Route
-          path="/product/:productId"
-          element={
-            <ProductPage
-              products={allProducts}
-              onToggleWishlist={handleToggleWishlist}
-              wishlistItems={wishlistItems}
-              onAddToCart={handleAddToCart}
-            />
-          }
+
+        <Route path="/wishlist" element={
+          <Wishlist
+            wishlistItems={wishlistItems}
+            onToggleWishlist={handleToggleWishlist}
+          />
+        }
         />
-        <Route
-          path="/wishlist"
-          element={
-            <Wishlist
-              wishlistItems={wishlistItems}
-              onToggleWishlist={handleToggleWishlist}
-            />
-          }
-        />
-        <Route
-          path="/cart"
+
+        <Route path="/cart"
           element={<CartPage cartItems={cartItems} onUpdateQuantity={handleUpdateCartQuantity} />}
         />
+
       </Routes>
     </>
-  );
-};
 
-function App() {
+  );
+}
+
+const App = () => {
   return (
     <Router>
       <AppContent />
     </Router>
   );
-}
+};
 
 export default App;

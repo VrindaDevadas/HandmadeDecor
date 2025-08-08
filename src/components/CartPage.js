@@ -11,7 +11,7 @@ const CartPage = ({ cartItems, onUpdateQuantity }) => {
 
     return (
         <div className="cart-page-container">
-            <h1>Shopping Cart</h1>
+            <h1>Your Cart</h1>
             {cartItems.length === 0 ? (
                 <div className="cart-empty">
                     <p>Your cart is empty!</p>

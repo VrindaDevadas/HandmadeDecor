@@ -1,4 +1,4 @@
-/* ProductCarousel.css (New File) */
+/* ProductCarousel.css */
 
 .subheading-section {
     background-color: white;
@@ -27,21 +27,20 @@
     overflow-x: auto;
     scroll-behavior: smooth;
     gap: 70px;
+    /* This gap is for desktop */
     padding: 10px 0;
-    /* Hide scrollbar */
+    /* Hide scrollbar for a cleaner look on all devices */
     scrollbar-width: none;
-    /* Firefox */
     -ms-overflow-style: none;
-    /* IE and Edge */
 }
 
 .product-grid-scroll::-webkit-scrollbar {
     display: none;
-    /* Chrome, Safari, and Opera */
 }
 
 .product-card {
     flex: 0 0 280px;
+    /* Fixed width for desktop */
     background-color: #f0f0f0;
     border-radius: 16px;
     overflow: hidden;
@@ -77,15 +76,21 @@
     margin-bottom: 12px;
 }
 
-.shop-btn {
+.shop-btn-link {
+    display: inline-block;
     background-color: black;
     color: white;
-    border: none;
+    text-decoration: none;
     padding: 10px 0;
     border-radius: 6px;
-    cursor: pointer;
     font-weight: 500;
     font-size: 0.95rem;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+
+.shop-btn-link:hover {
+    background-color: #333;
 }
 
 .scroll-btn {
@@ -113,4 +118,31 @@
 
 .scroll-btn.right {
     right: 10px;
+}
+
+
+
+@media (max-width: 568px) {
+
+    .product-carousel-section {
+
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+
+    .product-grid-scroll {
+        scroll-snap-type: x mandatory;
+        padding: 10px 10%;
+        gap: 80px;
+
+    }
+
+    .product-card {
+
+        flex: 0 0 80%;
+        scroll-snap-align: center;
+    }
+
+
 }
