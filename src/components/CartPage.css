@@ -98,7 +98,6 @@
     cursor: pointer;
 }
 
-/* Add these new styles at the end of CartPage.css */
 
 .cart-item-price-single {
     color: #666;
@@ -141,4 +140,21 @@
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
     padding: 4px 0;
+}
+
+@media (max-width: 500px) {
+
+    .cart-item {
+        /* Stack the image and info vertically */
+        flex-direction: column;
+        align-items: flex-start;
+        /* Align to the left */
+        gap: 15px;
+    }
+
+    .cart-item-image {
+        width: 100%;
+        height: auto;
+
+    }
 }

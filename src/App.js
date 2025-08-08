@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import "./App.css";
 import HeaderBanner from "./components/HeaderBanner";
 import ProductPage from './components/ProductPage';
@@ -18,6 +18,15 @@ import gardenvase from './images/gardenvase.jpg';
 import faceplanter from './images/faceplanter.jpg';
 import fairylantern from './images/fairylantern.jpeg';
 import windchime from './images/windchime.jpeg';
+
+
+const useScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+};
 
 const allProducts = [
   {
@@ -132,7 +141,9 @@ const allProducts = [
 
 
 
-function App() {
+const AppContent = () => {
+
+  useScrollToTop();
 
   const [wishlistItems, setWishlistItems] = useState([]);
 
@@ -191,42 +202,53 @@ function App() {
 
 
   return (
-    <Router>
+    <>
       <HeaderBanner />
-      <Navigation wishlistCount={wishlistItems.length}
+      <Navigation
+        wishlistCount={wishlistItems.length}
         cartCount={cartItemCount}
-        setScrollTarget={setScrollTarget} />
+        setScrollTarget={setScrollTarget}
+      />
       <Routes>
-        <Route path="/" element={
-          <Home
-            scrollTarget={scrollTarget}
-            setScrollTarget={setScrollTarget} />} />
-        {/* This route will render the ProductPage and pass all products to it */}
-        <Route path="/product/:productId" element={
-          <ProductPage
-            products={allProducts}
-            onToggleWishlist={handleToggleWishlist}
-            wishlistItems={wishlistItems}
-            onAddToCart={handleAddToCart} />}
+        <Route
+          path="/"
+          element={<Home scrollTarget={scrollTarget} setScrollTarget={setScrollTarget} />}
         />
-
-        <Route path="/wishlist" element={
-          <Wishlist
-            wishlistItems={wishlistItems}
-            onToggleWishlist={handleToggleWishlist}
-          />
-        }
+        <Route
+          path="/product/:productId"
+          element={
+            <ProductPage
+              products={allProducts}
+              onToggleWishlist={handleToggleWishlist}
+              wishlistItems={wishlistItems}
+              onAddToCart={handleAddToCart}
+            />
+          }
         />
-
-        <Route path="/cart"
+        <Route
+          path="/wishlist"
+          element={
+            <Wishlist
+              wishlistItems={wishlistItems}
+              onToggleWishlist={handleToggleWishlist}
+            />
+          }
+        />
+        <Route
+          path="/cart"
           element={<CartPage cartItems={cartItems} onUpdateQuantity={handleUpdateCartQuantity} />}
         />
-
       </Routes>
-    </Router>
-
+    </>
   );
+};
 
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
 }
 
 export default App;
