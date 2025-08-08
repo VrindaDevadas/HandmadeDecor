@@ -34,9 +34,6 @@
   box-sizing: border-box;
 }
 
-.no-scroll {
-  overflow: hidden;
-}
 
 @keyframes App-logo-spin {
   from {

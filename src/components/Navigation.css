@@ -67,6 +67,10 @@
   user-select: none;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 .nav-link:hover,
 .nav-link.active {
   color: #536e35;
@@ -158,6 +162,10 @@
 /* for very small mobile screens */
 
 @media (max-width: 380px) {
+
+  .no-scroll {
+    overflow: hidden;
+  }
 
   .brand-logo-image {
     height: 60px;
