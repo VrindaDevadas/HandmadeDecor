@@ -3,6 +3,7 @@ import './Home.css';
 import React, { useRef, useEffect, useState } from 'react';
 import ProductCarousel from './ProductCarousel';
 import './Home.css';
+import { Link } from 'react-router-dom';
 
 
 import flowerpic from '../images/flowerpic.png';
@@ -15,7 +16,7 @@ import img9 from '../images/img9.jpeg';
 import img10 from '../images/img10.jpeg';
 import flowerlamp from '../images/flowerlamp.jpeg';
 import fairylantern from '../images/fairylantern.jpeg';
-import windchime from '../images/windchime.jpeg';
+import driftwoodcrystal from '../images/driftwoodcrystal.jpeg';
 import moderncandle from '../images/moderncandle.jpg';
 import lemonmugs from '../images/lemonmugs.jpg';
 import daisyhat from '../images/daisyhat.jpg';
@@ -37,15 +38,15 @@ import video1 from '../images/video1.mp4';
 
 
 
-const images = [img4, img5, img6, img7, img8, img9, img10, flowerlamp, fairylantern, windchime, flowerpic, tablelamp, wallhangings, candles, terrariums, crochet, ceramic,
+const images = [img4, img5, img6, img7, img8, img9, img10, flowerlamp, fairylantern, driftwoodcrystal, flowerpic, tablelamp, wallhangings, candles, terrariums, crochet, ceramic,
     about1, about2, about3,];
 
 
 
-function Home({ scrollTarget, setScrollTarget }) {
+function Home({ scrollTarget, setScrollTarget, collections = [], setActiveSection }) {
 
     const featuredProducts = [
-        { id: 'crystal-root-chime', image: windchime, name: "Crystal Root Chime", price: "₹1750.00" },
+        { id: 'crystal-root-chime', image: driftwoodcrystal, name: "Driftwood Crystal Root Chime", price: "₹1750.00" },
         { id: 'daisy-hat', image: daisyhat, name: "Daisy Hat", price: "₹1200.00" },
         { id: 'flower-lamp', image: flowerlamp, name: "Flower Lamp", price: "₹1450.00" },
         { id: 'lemon-mugs', image: lemonmugs, name: "Ceramic Lemon Mugs", price: "₹1100.00" },
@@ -60,10 +61,46 @@ function Home({ scrollTarget, setScrollTarget }) {
         { id: 'garden-vase', image: gardenvase, name: "Springtime Garden Vase", price: "₹2200.00" },
     ];
 
-    const sectionRef = useRef(null);
+    const heroSectionRef = useRef(null);
     const [animate, setAnimate] = useState(false);
 
     useEffect(() => {
+        const sections = [heroSectionRef, collectionsSectionRef, aboutSectionRef];
+
+        const observerOptions = {
+            root: null, // observes intersections relative to the viewport
+            rootMargin: '-50% 0px -50% 0px', // A horizontal line in the middle of the screen
+            threshold: 0, // Trigger when any part of the target is visible in the root
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setActiveSection(entry.target.id);
+                }
+            });
+        }, observerOptions);
+
+
+        sections.forEach(sectionRef => {
+            if (sectionRef.current) {
+                observer.observe(sectionRef.current);
+            }
+        });
+
+
+
+        return () => {
+            sections.forEach(sectionRef => {
+                if (sectionRef.current) {
+                    observer.unobserve(sectionRef.current);
+                }
+            });
+        };
+    }, [setActiveSection]);
+
+    useEffect(() => {
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -81,8 +118,8 @@ function Home({ scrollTarget, setScrollTarget }) {
         return () => observer.disconnect();
     }, []);
 
-    const introRef = useRef(null);
 
+    const introRef = useRef(null);
     const featuredRef = useRef(null);
 
     const scrollFeatured = (direction) => {
@@ -177,7 +214,7 @@ function Home({ scrollTarget, setScrollTarget }) {
 
     return (
         <div className="home">
-            <section className="hero">
+            <section className="hero" ref={heroSectionRef} id="home">
                 <h1>
                     <span className="highlight">ELEVATE</span> YOUR <span className="highlight">HOME</span> WITH UNIQUE<br />
                     HANDMADE <span className="highlight">PIECES</span> <img src={flowerpic} className="image"></img>
@@ -206,30 +243,18 @@ function Home({ scrollTarget, setScrollTarget }) {
             <section className="collections-section" ref={collectionsSectionRef}>
                 <h2 className="collections-title">Explore Our Collections!</h2>
                 <div className="collections-grid">
-                    <div className="collection-card">
-                        <img src={tablelamp} alt="Table Lamps" />
-                        <p>Table Lamps</p>
-                    </div>
-                    <div className="collection-card">
-                        <img src={wallhangings} alt="Wall Hangings" />
-                        <p>Wall Hangings</p>
-                    </div>
-                    <div className="collection-card">
-                        <img src={candles} alt="Candles & Holders" />
-                        <p>Candles & Holders</p>
-                    </div>
-                    <div className="collection-card">
-                        <img src={terrariums} alt="Terrariums & Planters" />
-                        <p>Terrariums & Planters</p>
-                    </div>
-                    <div className="collection-card">
-                        <img src={crochet} alt="Crochet" />
-                        <p>Crochet</p>
-                    </div>
-                    <div className="collection-card">
-                        <img src={ceramic} alt="Ceramic & Pottery" />
-                        <p>Ceramic & Pottery</p>
-                    </div>
+                    {/* Use the 'collections' prop passed from App.js */}
+                    {collections.map((collection) => (
+                        // Wrap the entire card in a Link component
+                        <Link to={`/collection/${collection.id}`} key={collection.id} className="collection-card-link">
+                            <div className="collection-card">
+                                <img src={collection.image} alt={collection.name} />
+                                <div className="collection-overlay">
+                                    <span className="collection-card-title">{collection.name}</span>
+                                </div>
+                            </div>
+                        </Link>
+                    ))}
                 </div>
             </section>
 
@@ -240,7 +265,7 @@ function Home({ scrollTarget, setScrollTarget }) {
             </div>
 
 
-            <section className="about-section" ref={aboutSectionRef}>
+            <section id="about" className="about-section" ref={aboutSectionRef}>
                 <div className="about-overlay">
                     <h2 className={`about-title ${animate ? 'slide-in' : ''}`}>About Us</h2>
 

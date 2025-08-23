@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Navigation.css";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import logo2 from "../images/logo-2.png";
@@ -19,7 +19,7 @@ const CartNavIcon = () => (
   </svg>
 );
 
-const Navigation = ({ wishlistCount, setScrollTarget, cartCount }) => {
+const Navigation = ({ wishlistCount, setScrollTarget, cartCount, activeSection }) => {
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -39,7 +39,15 @@ const Navigation = ({ wishlistCount, setScrollTarget, cartCount }) => {
     if (isMobileMenuOpen) {
       setMobileMenuOpen(false); // Close mobile menu on click
     }
+  };
 
+  const isLinkActive = (sectionId) => {
+    if (location.pathname.startsWith('/collection')) {
+      // If we are on ANY collection page, the 'Collections' link should be active.
+      return sectionId === 'collections';
+    }
+    // Otherwise, for the home page, just use the scroll-based active section.
+    return activeSection === sectionId;
   };
 
   const toggleMobileMenu = () => {
@@ -80,11 +88,11 @@ const Navigation = ({ wishlistCount, setScrollTarget, cartCount }) => {
         </button>
 
         <div className={`nav-links ${isMobileMenuOpen ? "show-mobile-menu" : ""}`}>
-          <Link to="/" className="nav-link">Home</Link>
-          <div className="nav-link" onClick={() => handleLinkClick('collections')}>
+          <Link to="/" className={`nav-link ${isLinkActive('home') ? 'active' : ''}`}>Home</Link>
+          <div className={`nav-link ${isLinkActive('collections') ? 'active' : ''}`} onClick={() => handleLinkClick('collections')}>
             Collections
           </div>
-          <div className="nav-link" onClick={() => handleLinkClick('about')}>
+          <div className={`nav-link ${isLinkActive('about') ? 'active' : ''}`} onClick={() => handleLinkClick('about')}>
             About Us
           </div>
           <Link to="/contact" className="nav-link">Contact</Link>

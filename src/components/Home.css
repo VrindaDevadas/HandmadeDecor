@@ -137,8 +137,9 @@ body {
 
 }
 
-.collections-title {
-    font-size: 1.8rem;
+.collection-card-title {
+
+    font-size: 1.3rem;
     font-weight: 600;
     margin-bottom: 40px;
     color: #222;
@@ -178,6 +179,13 @@ body {
     color: #333;
     margin: 0;
     font-size: 1rem;
+}
+
+/* In Home.css */
+.collection-card-link {
+    text-decoration: none;
+    /* Removes the default link underline */
+    color: inherit;
 }
 
 .about-section {
