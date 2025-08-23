@@ -1,15 +1,14 @@
-# Haven & Hearth ✨
+# Handcrafted Home Decor Website ✨
 
 *A beautifully crafted e-commerce storefront for handmade home decor items, built with modern web technologies.*
 
 ---
 
-### [🚀 Live Demo](https://your-live-demo-link.com)
+### [🚀 Live Demo](https://heavennhearth.netlify.app/)
 
 ---
 
-![Haven & Hearth Screenshot](path/to/your/screenshot.png)
-*(A GIF is even better! You can use a tool like ScreenToGif to record your screen.)*
+![Haven & Hearth Screenshot](src/images/logo-2.png)
 
 ## 📝 Project Description
 
@@ -62,10 +61,9 @@ To get a local copy up and running, follow these simple steps.
     ```sh
     npm start
     ```
-    Your application should now be running on [http://localhost:3000](http://localhost:3000).
+    Your application should now be running on [http://localhost:3000](http://localhost:3000/).
 
 ## 📫 Contact
 
-Your Name – [your.email@example.com](mailto:your.email@example.com)
+Vrinda Devadas – [vrinda03devadas@gmail.com](vrinda03devadas@gmail.com)
 
-Project Link: [https://github.com/your-username/homedecor](https://github.com/your-username/homedecor)
