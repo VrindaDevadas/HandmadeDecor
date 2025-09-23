@@ -41,6 +41,14 @@ import video1 from '../images/video1.mp4';
 const images = [img4, img5, img6, img7, img8, img9, img10, flowerlamp, fairylantern, driftwoodcrystal, flowerpic, tablelamp, wallhangings, candles, terrariums, crochet, ceramic,
     about1, about2, about3,];
 
+const StarRating = ({ rating = 5 }) => (
+    <div className="star-rating">
+        {[...Array(rating)].map((_, index) => (
+            <span key={index}>⭐</span>
+        ))}
+    </div>
+);
+
 
 
 function Home({ scrollTarget, setScrollTarget, collections = [], setActiveSection }) {
@@ -63,6 +71,34 @@ function Home({ scrollTarget, setScrollTarget, collections = [], setActiveSectio
 
     const heroSectionRef = useRef(null);
     const [animate, setAnimate] = useState(false);
+
+    const userReviews = [
+        {
+            username: 'dreamweaver.',
+            rating: 5,
+            comment: 'Absolutely in love with my new flower lamp! It adds such a warm, magical glow to my room. The craftsmanship is outstanding.'
+        },
+        {
+            username: 'Rohan',
+            rating: 5,
+            comment: 'The Serene Face Planter is a work of art. It’s the perfect blend of modern and tranquil. Arrived beautifully packaged too!'
+        },
+        {
+            username: 'Anjali K.',
+            rating: 4,
+            comment: 'My crochet beach bag is my new favorite accessory. It’s so well-made and stylish. I only wish it had a small inner pocket.'
+        },
+        {
+            username: 'mazzy',
+            rating: 5,
+            comment: 'The Driftwood Crystal Chime is stunning. The sound is so peaceful, and it looks incredible when the sun hits it. Truly a unique piece.'
+        },
+
+    ];
+
+
+    const duplicatedReviews = [...userReviews, ...userReviews];
+
 
     useEffect(() => {
         const sections = [heroSectionRef, collectionsSectionRef, aboutSectionRef];
@@ -316,6 +352,21 @@ function Home({ scrollTarget, setScrollTarget, collections = [], setActiveSectio
                             </li>
                         ))}
                     </ul>
+                </div>
+            </section>
+
+            <section className="user-reviews-section">
+                <h2 className="reviews-title">User Reviews</h2>
+                <div className="reviews-carousel">
+                    <div className="reviews-track">
+                        {duplicatedReviews.map((review, index) => (
+                            <div className="review-card" key={index}>
+                                <h3 className="review-username">{review.username}</h3>
+                                <StarRating rating={review.rating} />
+                                <p className="review-comment">"{review.comment}"</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
 
